@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NullPointerException {
 
         Scanner scanner = new Scanner(System.in);
 
         double a;
         double b;
+        String command;
 
         System.out.println("Введите число a");
         a = scanner.nextDouble();
@@ -14,16 +15,28 @@ public class Main {
         System.out.println("Введите число b");
         b = scanner.nextDouble();
 
-        Calculator calculator = new Calculator((k, v) -> k + v);
-        System.out.println("Результат сложения a и b: " + calculator.calc(a, b));
+        scanner.nextLine();
 
-        calculator = new Calculator((k, v) -> k - v);
-        System.out.println("Результат вычитания a и b: " + calculator.calc(a, b));
+        System.out.println("Введите тип операции: [adder, divider, multiplier, subtractor]");
+        command = scanner.nextLine();
 
-        calculator = new Calculator(new Multiplier());
-        System.out.println("Результат умножения a и b: " + calculator.calc(a, b));
-
-        calculator = new Calculator(new Divider());
-        System.out.println("Результат деления a и b: " + calculator.calc(a, b));
+        switch(command) {
+            case "adder":
+                Calculator calculator = new Calculator(new Adder());
+                System.out.println(calculator.calc(a, b));
+                break;
+            case "divider":
+                calculator = new Calculator(new Divider());
+                System.out.println(calculator.calc(a, b));
+                break;
+            case "multiplier":
+                calculator = new Calculator(new Multiplier());
+                System.out.println(calculator.calc(a, b));
+                break;
+            case "subtractor":
+                calculator = new Calculator(new Subtractor());
+                System.out.println(calculator.calc(a, b));
+                break;
+        }
     }
 }
